@@ -1,65 +1,324 @@
-import Image from "next/image";
+'use client'
+
+import { useState, useRef } from 'react'
+import { supabase } from '@/lib/supabase'
 
 export default function Home() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    userType: '',
+    companyName: ''
+  })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [error, setError] = useState('')
+  const emailRef = useRef<HTMLInputElement>(null)
+
+  const formatPhone = (value: string) => {
+    const digits = value.replace(/\D/g, '')
+    if (digits.length <= 3) {
+      return digits.length > 0 ? `(${digits}` : ''
+    } else if (digits.length <= 6) {
+      return `(${digits.slice(0, 3)}) ${digits.slice(3)}`
+    } else {
+      return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`
+    }
+  }
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, phone: formatPhone(e.target.value) })
+  }
+
+  const selectUserType = (type: string) => {
+    setFormData({ ...formData, userType: type })
+    emailRef.current?.focus()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!formData.email) {
+      setError('Please enter your email address.')
+      return
+    }
+
+    setIsSubmitting(true)
+    setError('')
+
+    try {
+      const { error: supabaseError } = await supabase
+        .from('waitlist')
+        .insert([
+          {
+            email: formData.email,
+            name: formData.name || null,
+            phone: formData.phone || null,
+            interested_as: formData.userType || null,
+            company_name: formData.companyName || null,
+            source: 'landing_page'
+          }
+        ])
+
+      if (supabaseError) {
+        if (supabaseError.code === '23505') {
+          setError('This email is already on the waitlist!')
+        } else {
+          setError('Something went wrong. Please try again.')
+          console.error('Supabase error:', supabaseError)
+        }
+        setIsSubmitting(false)
+        return
+      }
+
+      // Send welcome email via Edge Function
+      try {
+        await fetch('https://avnabpujihccqcbuanut.supabase.co/functions/v1/send-waitlist-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name || null,
+            email: formData.email,
+            phone: formData.phone || null,
+            interested_as: formData.userType || null
+          })
+        })
+      } catch (emailError) {
+        console.log('Email send failed, but signup succeeded')
+      }
+
+      setIsSuccess(true)
+    } catch (err) {
+      setError('Connection error. Please try again.')
+      console.error('Error:', err)
+      setIsSubmitting(false)
+    }
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <>
+      <div className="bg-gradient" />
+      <div className="grain" />
+
+      <nav className="nav">
+        <div className="logo">Odori<span>.</span></div>
+        <a href="#join">Join Waitlist</a>
+      </nav>
+
+      <section className="hero">
+        <div className="hero-content">
+          <p className="tagline">Launching January 2026</p>
+          <h1>Where Dance <em>Works</em></h1>
+          <p className="subtitle">
+            The professional network connecting dance teachers, choreographers, and studios.
+            Find opportunities. Discover talent. Build your career.
           </p>
+
+          {!isSuccess ? (
+            <div className="waitlist-form">
+              {error && <div className="form-error show">{error}</div>}
+
+              <form onSubmit={handleSubmit}>
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="name">Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      placeholder="Your name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="email">Email *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      ref={emailRef}
+                      placeholder="your@email.com"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="phone">Phone (Optional)</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      placeholder="(555) 123-4567"
+                      value={formData.phone}
+                      onChange={handlePhoneChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="user-type-group">
+                  <label>I am a...</label>
+                  <div className="user-type-options">
+                    <div className="user-type-option">
+                      <input
+                        type="radio"
+                        id="type-talent"
+                        name="user_type"
+                        value="talent"
+                        checked={formData.userType === 'talent'}
+                        onChange={(e) => setFormData({ ...formData, userType: e.target.value })}
+                      />
+                      <label htmlFor="type-talent">Dancer / Teacher</label>
+                    </div>
+                    <div className="user-type-option">
+                      <input
+                        type="radio"
+                        id="type-studio"
+                        name="user_type"
+                        value="studio"
+                        checked={formData.userType === 'studio'}
+                        onChange={(e) => setFormData({ ...formData, userType: e.target.value })}
+                      />
+                      <label htmlFor="type-studio">Studio / Company</label>
+                    </div>
+                    <div className="user-type-option">
+                      <input
+                        type="radio"
+                        id="type-both"
+                        name="user_type"
+                        value="both"
+                        checked={formData.userType === 'both'}
+                        onChange={(e) => setFormData({ ...formData, userType: e.target.value })}
+                      />
+                      <label htmlFor="type-both">Both</label>
+                    </div>
+                  </div>
+                </div>
+
+                {(formData.userType === 'studio' || formData.userType === 'both') && (
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label htmlFor="companyName">Company / Studio Name (Optional)</label>
+                      <input
+                        type="text"
+                        id="companyName"
+                        placeholder="Your studio or company name"
+                        value={formData.companyName}
+                        onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Joining...' : 'Join the Waitlist'}
+                </button>
+              </form>
+
+              <p className="form-note">Be first to know when we launch. No spam, ever.</p>
+            </div>
+          ) : (
+            <div className="signup-success show">
+              <div className="checkmark">✓</div>
+              <h3>You&apos;re on the list!</h3>
+              <p>We&apos;ll notify you as soon as Odori launches.</p>
+            </div>
+          )}
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="scroll-indicator">
+          <span>Learn more</span>
+          <div className="line" />
         </div>
-      </main>
-    </div>
-  );
+      </section>
+
+      <section className="features" id="features">
+        <div className="features-header">
+          <h2>A New Standard for Dance Hiring</h2>
+          <p>Everything the industry has been missing, in one platform.</p>
+        </div>
+
+        <div className="features-grid">
+          <div className="feature-card">
+            <div className="icon">◎</div>
+            <h3>Video Portfolios</h3>
+            <p>Showcase your teaching style with demo videos. Studios see how you work before they reach out—no more guesswork.</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="icon">◈</div>
+            <h3>Real-Time Job Status</h3>
+            <p>Never apply to a filled position again. When a job is taken, it disappears. Simple.</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="icon">◇</div>
+            <h3>Response Rate Tracking</h3>
+            <p>See which studios actually respond to applicants. No more ghosting. Full transparency.</p>
+          </div>
+
+          <div className="feature-card">
+            <div className="icon">○</div>
+            <h3>One Platform</h3>
+            <p>Stop scrolling through 20 Facebook groups. Every opportunity in one searchable, filterable database.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="audiences" id="join">
+        <div className="audiences-grid">
+          <div className="audience-card">
+            <h3>For Talent</h3>
+            <p className="role">Teachers • Choreographers • Performers</p>
+            <ul>
+              <li>Build a professional video portfolio</li>
+              <li>Search jobs by style, location, pay</li>
+              <li>Apply directly to verified studios</li>
+              <li>Track your application status</li>
+              <li>Get discovered by studios searching for talent</li>
+            </ul>
+            <button className="btn-outline" onClick={() => selectUserType('talent')}>
+              Join as Talent
+            </button>
+          </div>
+
+          <div className="audience-card">
+            <h3>For Studios</h3>
+            <p className="role">Studio Owners • Directors • Production Companies</p>
+            <ul>
+              <li>Watch teaching demos before hiring</li>
+              <li>Post jobs to qualified candidates only</li>
+              <li>Search talent by style and experience</li>
+              <li>Message and book directly</li>
+              <li>Build your reputation with reviews</li>
+            </ul>
+            <button className="btn-outline" onClick={() => selectUserType('studio')}>
+              Join as Studio
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="footer-logo">Odori<span>.</span></div>
+        <p>The Dance Industry Network</p>
+        <p>© 2025 Odori. All rights reserved.</p>
+        <div className="socials">
+          <a href="https://www.facebook.com/share/1G1voHBStS/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">Facebook</a>
+          <a href="https://instagram.com/getodori" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://tiktok.com/@get.odori" target="_blank" rel="noopener noreferrer">TikTok</a>
+        </div>
+      </footer>
+    </>
+  )
 }
