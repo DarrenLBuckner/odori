@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(SUPABASE_ACCESS_TOKEN=sbp_87e5e640628d833b6b61088074cefb7f85a58e2e npx supabase:*)",
+      "Bash(git push:*)"
+    ]
+  }
+}
