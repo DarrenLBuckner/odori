@@ -7,7 +7,23 @@
       "Bash(cat:*)",
       "Bash(npm run build:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git -C \"C:/Dev/odori-backend\" log --oneline -3)",
+      "Bash(git -C \"C:/Dev/odori-backend\" add src/app/\\\\\\(auth\\\\\\)/layout.tsx src/components/auth/SignupForm.tsx src/components/ui/Input.tsx)",
+      "Bash(git -C \"C:/Dev/odori-backend\" commit -m \"$\\(cat <<''EOF''\nAdd password security enhancements to signup form\n\n- Add show/hide password toggle to Input component\n- Add strong password validation \\(8+ chars, uppercase, lowercase, number, special character\\)\n- Display real-time password requirements checklist\n- Show password match indicator\n- Fix logo aspect ratio warning\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:/Dev/odori-backend\" add:*)",
+      "Bash(git -C \"C:/Dev/odori-backend\" commit -m \"$\\(cat <<''EOF''\nAdd header navigation with user menu and protected layout\n\n- Create useUser hook for fetching user and profile data\n- Add Header component with logo, navigation links, and user menu\n- Add UserMenu dropdown with user info, navigation, and logout\n- Create \\(protected\\) route group with shared layout\n- Move dashboard to protected route group with enhanced UI\n- Add user type-specific navigation \\(Talent vs Client\\)\n- Add mobile navigation support\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C \"C:/Dev/odori-backend\" push)",
+      "Bash(git -C \"C:/Dev/odori-backend\" status)",
+      "Bash(git -C \"C:/Dev/odori-backend\" add src/app/\\\\\\(protected\\\\\\)/jobs/ src/app/\\\\\\(public\\\\\\)/jobs/ src/components/jobs/ src/components/ui/QualityGauge.tsx src/lib/actions/jobs.ts src/lib/utils/)",
+      "Bash(git -C \"C:/Dev/odori-backend\" commit -m \"$\\(cat <<''EOF''\nAdd job posting system with create, manage, and public views\n\n- Create QualityGauge component for visual quality scoring\n- Add job server actions \\(create, update, delete, status, queries\\)\n- Create JobPostingForm with 4-step wizard and quality tips\n- Create JobCard component for job listings\n- Add job creation page \\(clients only\\)\n- Add job management dashboard with status filtering\n- Update public jobs page with listings and filters\n- Add job detail page with full information\n- Move calculateJobQuality to utils for server action compliance\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(taskkill:*)",
+      "Bash(git -C /c/Dev/odori-main log --oneline -3)",
+      "Bash(git -C /c/Dev/odori-main add src/lib/supabase.ts src/lib/queries.ts src/app/jobs/ src/app/talent/ src/components/)",
+      "Bash(git -C /c/Dev/odori-main commit -m \"$\\(cat <<''EOF''\nAdd public jobs and talent browsing pages\n\n- Add queries.ts with Supabase data fetching functions\n- Add PublicHeader and Footer layout components\n- Add PublicJobCard and TalentCard components\n- Create /jobs listing and /jobs/[id] detail pages\n- Create /talent listing and /talent/[id] profile pages\n- Add APP_URL constant for auth redirects to app.odori.io\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C /c/Dev/odori-main push)",
+      "Bash(git -C /c/Dev/odori-backend status)",
+      "Bash(git -C /c/Dev/odori-backend log --oneline -3)"
     ]
   }
 }
