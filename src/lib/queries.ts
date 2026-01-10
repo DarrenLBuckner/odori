@@ -62,7 +62,6 @@ export interface TalentProfile {
   headline?: string
   years_experience?: number
   experience_level?: string
-  primary_dance_style_id?: string
   available_for_work: boolean
   profile_completeness?: number
   open_to_full_time?: boolean
@@ -306,7 +305,6 @@ export async function getPublicTalentProfile(profileId: string): Promise<TalentP
       headline,
       years_experience,
       experience_level,
-      primary_dance_style_id,
       available_for_work,
       profile_completeness,
       open_to_full_time,
