@@ -729,6 +729,113 @@ body {
   text-align: center;
 }
 
+/* Featured Talent Section */
+.featured-talent {
+  padding: 5rem 4rem;
+  background: linear-gradient(180deg, rgba(201, 162, 39, 0.05) 0%, transparent 100%);
+  border-top: 1px solid rgba(201, 162, 39, 0.1);
+  border-bottom: 1px solid rgba(201, 162, 39, 0.1);
+}
+
+.featured-talent-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.featured-talent-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.featured-talent-header h2 {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+
+.featured-talent-header p {
+  color: var(--gray);
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.talent-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.talent-card {
+  display: block;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.talent-card:hover {
+  transform: translateY(-4px);
+}
+
+.talent-photo {
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.talent-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+}
+
+.talent-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.talent-card:hover .talent-name {
+  color: var(--gold);
+}
+
+.talent-role {
+  font-size: 0.8rem;
+  color: var(--gold);
+  margin-bottom: 0.25rem;
+}
+
+.talent-styles {
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-bottom: 0.25rem;
+}
+
+.talent-location {
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+}
+
+.featured-talent-cta {
+  text-align: center;
+}
+
+.browse-talent-link {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--gold);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.browse-talent-link:hover {
+  color: var(--white);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .nav {
@@ -798,5 +905,30 @@ body {
 
   .scroll-indicator {
     display: none;
+  }
+
+  .featured-talent {
+    padding: 3rem 1.5rem;
+  }
+
+  .featured-talent-header h2 {
+    font-size: 1.75rem;
+  }
+
+  .talent-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+
+  .talent-name {
+    font-size: 1rem;
+  }
+
+  .talent-role {
+    font-size: 0.75rem;
+  }
+
+  .talent-styles {
+    font-size: 0.7rem;
   }
 }

@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
+import FeaturedTalent from '@/components/FeaturedTalent'
 
 export default function Home() {
   const [formData, setFormData] = useState({
@@ -126,17 +127,7 @@ export default function Home() {
 
       </section>
 
-      <section className="signup-action">
-        <div className="signup-action-content">
-          <h3>Create Your Free Profile</h3>
-          <p>Join the dance industry's professional network.</p>
-          <div className="signup-buttons">
-            <a className="btn-primary" href="https://app.odori.io/signup?type=talent" target="_blank" rel="noopener noreferrer">Sign Up as Talent</a>
-            <a className="btn-primary" href="https://app.odori.io/signup?type=client" target="_blank" rel="noopener noreferrer">Sign Up as Studio</a>
-            <p className="small">Already have an account? <a href="https://app.odori.io/login" target="_blank" rel="noopener noreferrer">Log In</a></p>
-          </div>
-        </div>
-      </section>
+      <FeaturedTalent />
 
       <section className="features" id="features">
         <div className="features-header">
@@ -203,6 +194,18 @@ export default function Home() {
               <a className="btn-primary" href="https://app.odori.io/signup?type=client" target="_blank" rel="noopener noreferrer">Sign Up Free</a>
               <a className="btn-outline" href="/talent">Browse Talent</a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="signup-action">
+        <div className="signup-action-content">
+          <h3>Create Your Free Profile</h3>
+          <p>Join the dance industry's professional network.</p>
+          <div className="signup-buttons">
+            <a className="btn-primary" href="https://app.odori.io/signup?type=talent" target="_blank" rel="noopener noreferrer">Sign Up as Talent</a>
+            <a className="btn-primary" href="https://app.odori.io/signup?type=client" target="_blank" rel="noopener noreferrer">Sign Up as Studio</a>
+            <p className="small">Already have an account? <a href="https://app.odori.io/login" target="_blank" rel="noopener noreferrer">Log In</a></p>
           </div>
         </div>
       </section>
