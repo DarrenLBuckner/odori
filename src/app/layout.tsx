@@ -3,10 +3,10 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Odori - The Dance Industry Network",
-  description: "Odori connects dance professionals with opportunities. Teachers find positions. Studios find talent. Launching January 2026.",
+  description: "Odori connects dance professionals with opportunities. Teachers find positions. Studios find talent.",
   openGraph: {
     title: "Odori - The Dance Industry Network",
-    description: "The professional network built for dancers, choreographers, and studios. Launching January 2026.",
+    description: "The professional network built for dancers, choreographers, and studios.",
     type: "website",
     url: "https://odori.io",
   },
