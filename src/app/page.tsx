@@ -134,7 +134,7 @@ export default function Home() {
         <div className="dual-grid">
           <div className="dual-left">
             <h3>Ready to Join?</h3>
-            <p>Primary action for committed users</p>
+            <p>Create your free account and start connecting today.</p>
             <div className="signup-buttons">
               <a className="btn-primary" href="https://app.odori.io/signup?type=talent" target="_blank" rel="noopener noreferrer">Sign Up as Talent</a>
               <a className="btn-primary" href="https://app.odori.io/signup?type=client" target="_blank" rel="noopener noreferrer">Sign Up as Studio</a>
