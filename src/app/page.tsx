@@ -130,140 +130,14 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="dual-action">
-        <div className="dual-grid">
-          <div className="dual-left">
-            <h3>Ready to Join?</h3>
-            <p>Create your free account and start connecting today.</p>
-            <div className="signup-buttons">
-              <a className="btn-primary" href="https://app.odori.io/signup?type=talent" target="_blank" rel="noopener noreferrer">Sign Up as Talent</a>
-              <a className="btn-primary" href="https://app.odori.io/signup?type=client" target="_blank" rel="noopener noreferrer">Sign Up as Studio</a>
-              <p className="small">Already have an account? <a href="https://app.odori.io/login" target="_blank" rel="noopener noreferrer">Log In</a></p>
-            </div>
-          </div>
-
-          <div className="dual-right" id="join">
-            <h3>Stay in the Loop</h3>
-            <p>Get updates on new features and opportunities</p>
-
-            {!isSuccess ? (
-              <div className="waitlist-form">
-                {error && <div className="form-error show">{error}</div>}
-
-                <form onSubmit={handleSubmit}>
-                  <div className="form-row single">
-                    <div className="form-group">
-                      <label htmlFor="name">Name</label>
-                      <input
-                        type="text"
-                        id="name"
-                        placeholder="Your name"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-row single">
-                    <div className="form-group">
-                      <label htmlFor="email">Email *</label>
-                      <input
-                        type="email"
-                        id="email"
-                        ref={emailRef}
-                        placeholder="your@email.com"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="form-row single">
-                    <div className="form-group">
-                      <label htmlFor="phone">Phone (Optional)</label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        placeholder="(555) 123-4567"
-                        value={formData.phone}
-                        onChange={handlePhoneChange}
-                      />
-                    </div>
-                  </div>
-
-                  <div className="user-type-group">
-                    <label>I am a...</label>
-                    <div className="user-type-options">
-                      <div className="user-type-option">
-                        <input
-                          type="radio"
-                          id="type-talent"
-                          name="user_type"
-                          value="talent"
-                          checked={formData.userType === 'talent'}
-                          onChange={(e) => setFormData({ ...formData, userType: e.target.value })}
-                        />
-                        <label htmlFor="type-talent">Dancer / Teacher</label>
-                      </div>
-                      <div className="user-type-option">
-                        <input
-                          type="radio"
-                          id="type-studio"
-                          name="user_type"
-                          value="studio"
-                          checked={formData.userType === 'studio'}
-                          onChange={(e) => setFormData({ ...formData, userType: e.target.value })}
-                        />
-                        <label htmlFor="type-studio">Studio / Company</label>
-                      </div>
-                      <div className="user-type-option">
-                        <input
-                          type="radio"
-                          id="type-both"
-                          name="user_type"
-                          value="both"
-                          checked={formData.userType === 'both'}
-                          onChange={(e) => setFormData({ ...formData, userType: e.target.value })}
-                        />
-                        <label htmlFor="type-both">Both</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  {(formData.userType === 'studio' || formData.userType === 'both') && (
-                    <div className="form-row">
-                      <div className="form-group">
-                        <label htmlFor="companyName">Company / Studio Name (Optional)</label>
-                        <input
-                          type="text"
-                          id="companyName"
-                          placeholder="Your studio or company name"
-                          value={formData.companyName}
-                          onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <button
-                    type="submit"
-                    className="submit-btn"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? 'Subscribing...' : 'Subscribe'}
-                  </button>
-                </form>
-
-                <p className="form-note">Join 80+ dance professionals already on Odori</p>
-              </div>
-            ) : (
-              <div className="signup-success show">
-                <div className="checkmark">✓</div>
-                <h3>You're subscribed!</h3>
-                <p>Thanks — we&apos;ll keep you updated on Odori.</p>
-              </div>
-            )}
+      <section className="signup-action">
+        <div className="signup-action-content">
+          <h3>Create Your Free Profile</h3>
+          <p>Join the dance industry's professional network.</p>
+          <div className="signup-buttons">
+            <a className="btn-primary" href="https://app.odori.io/signup?type=talent" target="_blank" rel="noopener noreferrer">Sign Up as Talent</a>
+            <a className="btn-primary" href="https://app.odori.io/signup?type=client" target="_blank" rel="noopener noreferrer">Sign Up as Studio</a>
+            <p className="small">Already have an account? <a href="https://app.odori.io/login" target="_blank" rel="noopener noreferrer">Log In</a></p>
           </div>
         </div>
       </section>
@@ -315,7 +189,7 @@ export default function Home() {
             </ul>
             <div className="audience-ctas">
               <a className="btn-primary" href="https://app.odori.io/signup?type=talent" target="_blank" rel="noopener noreferrer">Sign Up Free</a>
-              <a className="btn-outline" href="/jobs">Browse Jobs First</a>
+              <a className="btn-outline" href="/jobs">Browse Jobs</a>
             </div>
           </div>
 
@@ -331,9 +205,55 @@ export default function Home() {
             </ul>
             <div className="audience-ctas">
               <a className="btn-primary" href="https://app.odori.io/signup?type=client" target="_blank" rel="noopener noreferrer">Sign Up Free</a>
-              <a className="btn-outline" href="/talent">Browse Talent First</a>
+              <a className="btn-outline" href="/talent">Browse Talent</a>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="newsletter" id="join">
+        <div className="newsletter-content">
+          <h3>Stay in the Loop</h3>
+          <p>Get updates on new features and opportunities</p>
+
+          {!isSuccess ? (
+            <div className="waitlist-form">
+              {error && <div className="form-error show">{error}</div>}
+
+              <form onSubmit={handleSubmit}>
+                <div className="form-row single">
+                  <div className="form-group">
+                    <label htmlFor="email">Email *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      ref={emailRef}
+                      placeholder="your@email.com"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  className="submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                </button>
+              </form>
+
+              <p className="form-note">Join our growing community of dance professionals</p>
+            </div>
+          ) : (
+            <div className="signup-success show">
+              <div className="checkmark">✓</div>
+              <h3>You're subscribed!</h3>
+              <p>Thanks — we&apos;ll keep you updated on Odori.</p>
+            </div>
+          )}
         </div>
       </section>
 

@@ -229,35 +229,51 @@ body {
   color: var(--gold);
 }
 
-/* Dual Action Section */
-.dual-action {
-  padding: 6rem 4rem;
+/* Signup Action Section */
+.signup-action {
+  padding: 4rem 4rem;
   background: rgba(255,255,255,0.02);
+  text-align: center;
 }
 
-.dual-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  max-width: 1000px;
+.signup-action-content {
+  max-width: 400px;
   margin: 0 auto;
 }
 
-.dual-left,
-.dual-right {
-  padding: 2rem;
-}
-
-.dual-left h3,
-.dual-right h3 {
+.signup-action-content h3 {
   font-family: var(--font-display);
   font-size: 1.8rem;
   font-weight: 400;
   margin-bottom: 0.5rem;
 }
 
-.dual-left p,
-.dual-right p {
+.signup-action-content p {
+  color: var(--gray);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Newsletter Section */
+.newsletter {
+  padding: 4rem 4rem;
+  background: rgba(255,255,255,0.02);
+  text-align: center;
+}
+
+.newsletter-content {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.newsletter-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+.newsletter-content p {
   color: var(--gray);
   font-size: 0.9rem;
   margin-bottom: 1.5rem;
@@ -727,7 +743,8 @@ body {
   }
 
   .hero {
-    padding: 6rem 1.5rem 4rem;
+    padding: 5rem 1.5rem 3rem;
+    min-height: auto;
   }
 
   .hero-ctas {
@@ -742,18 +759,12 @@ body {
     text-align: center;
   }
 
-  .dual-action {
-    padding: 4rem 1.5rem;
+  .signup-action {
+    padding: 3rem 1.5rem;
   }
 
-  .dual-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .dual-left,
-  .dual-right {
-    padding: 1rem;
+  .newsletter {
+    padding: 3rem 1.5rem;
   }
 
   .form-row {
