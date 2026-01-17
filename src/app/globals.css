@@ -738,8 +738,13 @@ body {
   }
 
   .nav-btn {
-    padding: 0.5rem 1rem;
-    font-size: 0.65rem;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.7rem;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
   }
 
   .hero {
