@@ -124,10 +124,6 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="scroll-indicator">
-          <span>Learn more</span>
-          <div className="line" />
-        </div>
       </section>
 
       <section className="signup-action">
