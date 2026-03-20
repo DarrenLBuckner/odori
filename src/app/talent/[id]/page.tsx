@@ -65,7 +65,7 @@ export default async function PublicTalentProfilePage({ params }: { params: Prom
     <div className="min-h-screen bg-[#0a0a0a]">
       <PublicHeader />
 
-      <main className="pt-24 pb-16">
+      <main style={{ paddingTop: '7rem', paddingBottom: '4rem' }}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Back Link */}
           <Link href="/talent" className="text-gray-400 hover:text-white transition-colors text-sm mb-6 inline-block">
